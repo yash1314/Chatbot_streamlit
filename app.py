@@ -16,7 +16,7 @@ st.header("*:violet[Chat] Next* ! 💬 ")
 
 with st.expander(label="📋 Tips & Guidance"):
     st.markdown("""
-        **Chat to your mind limits without any hesitation, at the same time beware of bot response, they might not be 100 accuract!**
+        **Feel free to chat openly and ask anything you like. Just keep in mind that my responses might not always be 100per accurate.**
         
         **:green[Enjoy exploring!]**""", unsafe_allow_html=True)
 
