@@ -18,7 +18,7 @@ class Model:
         messages = [{"role": "system", "content": "**Instructions:**\n1. Provide clear, accurate answers.\n2. Limit answers to 201 tokens while excluding query input tokens.\n3. Use the same language as the question.\n4.Shortish answers are better. But don't omit detail."},
                     {"role": "user", "content": u_input}]
         
-        output = Model.load_t2t_model()(messages, max_new_tokens = 196+len(u_input.split(" ")))
+        output = Model.load_t2t_model()(messages, max_new_tokens = 151+len(u_input.split(" ")))
         return output[0]['generated_text'][2]['content']
             
             

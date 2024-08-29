@@ -54,4 +54,3 @@ if prompt := st.chat_input("Chat with your bot",):
             response = st.write_stream(res)
 
     st.session_state.messages.append({"role": "assistant", "content": response})
-# _bottom.button(label='Upload', help='Button to upload file.', use_container_width=False,)
