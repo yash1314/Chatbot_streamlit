@@ -1,0 +1,6 @@
+streamlit
+numpy 
+pandas
+transformers
+torch
+better-profanity
