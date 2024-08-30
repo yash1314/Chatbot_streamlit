@@ -1,18 +1,19 @@
 import streamlit as st 
 from streamlit import _bottom
 from utils import casual_responses
-
+from streamlit_lottie import st_lottie
+import time, json, uuid
 
 st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered", initial_sidebar_state="auto")
 
-# bot and user chat alignment
+#bot and user chat alignment
 with open ('design.css') as source:
     st.markdown(f"<style>{source.read()}</style>",unsafe_allow_html=True)
 
 # design elements layouts
 st.markdown('<style>div.block-container{padding-top:0.4rem;}</style>', unsafe_allow_html=True)
 
-st.header("*:violet[Chat] Next* ! 💬 ")
+st.title(f"*:violet[Chat] Next* ! 💬")
 
 with st.expander(label="📋 Tips & Guidance"):
     st.markdown("""
@@ -48,9 +49,8 @@ if prompt := st.chat_input("Chat with your bot",):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner(" "):
-
+        with st.spinner("*Thinking*"):
             res = casual_responses(prompt)
-            response = st.write_stream(res)
+            response = st.write_stream(res)   
 
     st.session_state.messages.append({"role": "assistant", "content": response})
