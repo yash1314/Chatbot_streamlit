@@ -1,7 +1,6 @@
 import streamlit as st 
 from streamlit import _bottom
 from utils import casual_responses
-from streamlit_lottie import st_lottie
 import time, json, uuid
 
 st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered", initial_sidebar_state="auto")
