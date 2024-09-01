@@ -15,6 +15,5 @@ class Model:
 
     @staticmethod
     def QA_model(message):
-        print(message)
         answer = Model.load_t2t_model()(message, max_new_tokens = 750)
         return answer[0]['generated_text'][-1]['content']                   

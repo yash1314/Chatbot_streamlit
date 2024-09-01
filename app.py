@@ -15,7 +15,7 @@ with open ('design.css') as source:
 # design elements layouts
 st.markdown('<style>div.block-container{padding-top:0.4rem;}</style>', unsafe_allow_html=True)
 
-st.title(f"*:violet[Chat] Next* ! 💬")
+st.title(f"*:orange[Chat] Next* ! 💬")
 
 with st.expander(label="📋 Tips & Guidance"):
     st.markdown("""
