@@ -1,5 +1,5 @@
 import time 
-
+import streamlit as st
 # from src.model_components.model import Model
 # from better_profanity import profanity
 
@@ -39,6 +39,7 @@ def stream_output(message):
         
 
 # formatting the prompt for model input
+@st.cache_data(show_spinner=False)
 def message_prompt(newprompt=None, oldprompt=None):
         message = [{"role": "system", "content": "**Instructions:**\n1. Provide clear, accurate answers based on the context, including previous interactions.\n2. Use the same language as the question.\n3. Be concise but, shortish answers are better. Never omit detail.\n4. Incorporate information from previous questions and answers to provide a coherent response.\n5. If you cannot provide an answer based on the provided context, acknowledge this politely and state that you do not have enough information."}, 
                 {"role": "user", "content": oldprompt[-2]['user'] if oldprompt != None else "No user message" },

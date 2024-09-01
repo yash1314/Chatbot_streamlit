@@ -8,7 +8,7 @@ from better_profanity import profanity
 
 st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered", initial_sidebar_state="auto")
 
-#bot and user chat alignment
+# bot and user chat alignment
 with open ('design.css') as source:
     st.markdown(f"<style>{source.read()}</style>",unsafe_allow_html=True)
 
@@ -23,7 +23,7 @@ with st.expander(label="📋 Tips & Guidance"):
         
         **:green[Enjoy exploring!]**""", unsafe_allow_html=True)
 
-
+# details about creator profile
 st.markdown("""
     <div style="text-align: right;">
         <span style="display: inline-block;">Made by- <strong>Yash Keshari,</strong></span>
@@ -52,7 +52,7 @@ if prompt := st.chat_input("Chat with bot",):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        
+        # implemented memory for llm while generating responses.
         with st.spinner("Thinking.."):
             if len(chat_history) < 2:
                 res = Model.QA_model(message=message_prompt(newprompt=prompt))
