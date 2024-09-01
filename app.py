@@ -1,7 +1,10 @@
 import streamlit as st 
 from streamlit import _bottom
-from utils import casual_responses
-import time, json, uuid
+from utils import message_prompt, chat_history, stream_output
+
+from src.model_components.model import Model
+from better_profanity import profanity
+
 
 st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered", initial_sidebar_state="auto")
 
@@ -19,6 +22,7 @@ with st.expander(label="📋 Tips & Guidance"):
         **Feel free to chat openly and ask anything you like. Just keep in mind that my responses might not always be 100per accurate.**
         
         **:green[Enjoy exploring!]**""", unsafe_allow_html=True)
+
 
 st.markdown("""
     <div style="text-align: right;">
@@ -42,14 +46,23 @@ for message in st.session_state.messages:
 
 
 # chat elements 
-if prompt := st.chat_input("Chat with your bot",):
+if prompt := st.chat_input("Chat with bot",):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner("*Thinking*"):
-            res = casual_responses(prompt)
-            response = st.write_stream(res)   
+        
+        with st.spinner("Thinking.."):
+            if len(chat_history) < 2:
+                res = Model.QA_model(message=message_prompt(newprompt=prompt))
+                st.write_stream(stream_output(res)) 
+                chat_history.append({'user':prompt, 'assistant':res})
+            
+            else:
+                f_mes = message_prompt(newprompt=prompt, oldprompt=chat_history)
+                res = Model.QA_model(message=f_mes)
+                st.write_stream(stream_output(res)) 
+                chat_history.append({'user':prompt, 'assistant':res})
 
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages.append({"role": "assistant", "content": res})
