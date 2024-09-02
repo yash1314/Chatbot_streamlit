@@ -1,7 +1,7 @@
 import streamlit as st 
 from streamlit import _bottom
 from utils import message_prompt, chat_history, stream_output
-
+import random
 from src.model_components.model import Model
 from better_profanity import profanity
 
@@ -19,7 +19,7 @@ st.title(f"*:orange[Chat] Next* ! 💬")
 
 with st.expander(label="📋 Tips & Guidance"):
     st.markdown("""
-        **Feel free to chat openly and ask anything you like. Just keep in mind that my responses might not always be 100per accurate.**
+        **Feel free to chat openly and ask anything you like. Just keep in mind that my responses might not always be factual and 100% accurate.**
         
         **:green[Enjoy exploring!]**""", unsafe_allow_html=True)
 
@@ -52,17 +52,25 @@ if prompt := st.chat_input("Chat with bot",):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        # implemented memory for llm while generating responses.
-        with st.spinner("Thinking.."):
-            if len(chat_history) < 2:
-                res = Model.QA_model(message=message_prompt(newprompt=prompt))
-                st.write_stream(stream_output(res)) 
-                chat_history.append({'user':prompt, 'assistant':res})
-            
-            else:
-                f_mes = message_prompt(newprompt=prompt, oldprompt=chat_history)
-                res = Model.QA_model(message=f_mes)
-                st.write_stream(stream_output(res)) 
-                chat_history.append({'user':prompt, 'assistant':res})
+        # filtering out explicit user prompts
+        if profanity.contains_profanity(prompt):  
+            res = random.choice(["Sorry, I cannot assist with that!",
+                                "I cannot help with that. Please, Let me know how I can assist further."])
+            st.write_stream(stream_output(res)) 
+            chat_history.append({'user':prompt, 'assistant':res})
+                
+        else:
+            # implemented memory for llm while generating responses
+            with st.spinner("Thinking.."):
+                if len(chat_history) < 2:
+                    res = Model.QA_model(message=message_prompt(newprompt=prompt))
+                    st.write_stream(stream_output(res)) 
+                    chat_history.append({'user':prompt, 'assistant':res})
+                
+                else:
+                    f_mes = message_prompt(newprompt=prompt, oldprompt=chat_history)
+                    res = Model.QA_model(message=f_mes)
+                    st.write_stream(stream_output(res)) 
+                    chat_history.append({'user':prompt, 'assistant':res})
 
     st.session_state.messages.append({"role": "assistant", "content": res})
