@@ -1,12 +1,15 @@
+import random, time, sys
 import streamlit as st 
 from streamlit import _bottom
-from utils import message_prompt, chat_history, stream_output
-import random
-from src.model_components.model import Model
 from better_profanity import profanity
+from src.logging import logging
+from src.exception import CustomException
 
+from utils import message_prompt, stream_output
+from src.model_components.model import Model
 
-st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered", initial_sidebar_state="auto")
+# page setup
+st.set_page_config(page_title="Chatbot", page_icon="💬", layout="wide")
 
 # bot and user chat alignment
 with open ('design.css') as source:
@@ -15,13 +18,10 @@ with open ('design.css') as source:
 # design elements layouts
 st.markdown('<style>div.block-container{padding-top:0.4rem;}</style>', unsafe_allow_html=True)
 
-st.title(f"*:orange[Chat] Next* ! 💬")
-
-with st.expander(label="📋 Tips & Guidance"):
-    st.markdown("""
-        **Feel free to chat openly and ask anything you like. Just keep in mind that my responses might not always be factual and 100% accurate.**
-        
-        **:green[Enjoy exploring!]**""", unsafe_allow_html=True)
+st.header(f"*:orange[Chat] Next*! 💬",divider='orange')
+st.markdown(" ")
+st.markdown("""**Feel free to chat openly and ask anything you like. Just keep in mind that bot responses might not always be factual and 100% accurate, so use carefully.
+    <span style="color: green;">Enjoy exploring!</span>**""", unsafe_allow_html=True)
 
 # details about creator profile
 st.markdown("""
@@ -33,10 +33,11 @@ st.markdown("""
         </span>
     </div>
     """, unsafe_allow_html=True)
-
+st.markdown(" ")
 st.markdown(" ")
 
-# initializing chat history 
+
+# initializing message history 
 if "messages" not in st.session_state:
         st.session_state.messages = []
 
@@ -47,30 +48,35 @@ for message in st.session_state.messages:
 
 # chat elements 
 if prompt := st.chat_input("Chat with bot",):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
+    try: 
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+    except Exception as e:
+        logging.info("Error in user message input")
+        CustomException(e, sys)
+    
     with st.chat_message("assistant"):
+        try:
         # filtering out explicit user prompts
-        if profanity.contains_profanity(prompt):  
-            res = random.choice(["Sorry, I cannot assist with that!",
-                                "I cannot help with that. Please, Let me know how I can assist further."])
-            st.write_stream(stream_output(res)) 
-            chat_history.append({'user':prompt, 'assistant':res})
-                
-        else:
-            # implemented memory for llm while generating responses
-            with st.spinner("Thinking.."):
-                if len(chat_history) < 2:
-                    res = Model.QA_model(message=message_prompt(newprompt=prompt))
-                    st.write_stream(stream_output(res)) 
-                    chat_history.append({'user':prompt, 'assistant':res})
-                
-                else:
-                    f_mes = message_prompt(newprompt=prompt, oldprompt=chat_history)
+            if profanity.contains_profanity(prompt):  
+                res = random.choice(["Sorry, I cannot assist with that!",
+                                    "I cannot help with that. Please, Let me know how I can assist further."])
+                st.write_stream(stream_output(res)) 
+                    
+            else:
+                with st.spinner("Thinking..."):
+                    start_time = time.monotonic()
+
+                    f_mes = message_prompt(newprompt=prompt, oldprompt=st.session_state.messages)
                     res = Model.QA_model(message=f_mes)
                     st.write_stream(stream_output(res)) 
-                    chat_history.append({'user':prompt, 'assistant':res})
+                    
+                    processed_time = round(time.monotonic() - start_time, ndigits=2)
+                    st.markdown(f'<div style="text-align: right;">Processed time: {processed_time} seconds</div>',
+                                unsafe_allow_html=True)
+        except Exception as e:
+            logging.info('Error generated in model output generation')
+            CustomException(e, sys)
 
     st.session_state.messages.append({"role": "assistant", "content": res})
