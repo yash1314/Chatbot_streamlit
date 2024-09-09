@@ -11,7 +11,7 @@ class Model:
     @st.cache_resource(show_spinner=False)
     def load_t2t_model():
         try:
-            model = pipeline("text-generation", model="Qwen/Qwen2-0.5B-Instruct", use_fast=True)
+            model = pipeline("text-generation", model="Qwen/Qwen2-1.5B-Instruct", use_fast=True)
             return model
         except Exception as e:
             logging.info('Error in model model loading')
