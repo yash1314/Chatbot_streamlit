@@ -4,3 +4,4 @@ pandas
 transformers
 torch
 better-profanity
+gradio-client

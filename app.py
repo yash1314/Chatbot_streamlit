@@ -68,8 +68,9 @@ if prompt := st.chat_input("Chat with bot",):
                 with st.spinner("Thinking..."):
                     start_time = time.monotonic()
 
-                    f_mes = message_prompt(newprompt=prompt, oldprompt=st.session_state.messages)
-                    res = Model.QA_model(message=f_mes)
+                    # f_mes = message_prompt(newprompt=prompt, oldprompt=st.session_state.messages)
+                    # res = Model.QA_model(message=f_mes)
+                    res = Model.model_generate(message=prompt)
                     st.write_stream(stream_output(res)) 
                     
                     processed_time = round(time.monotonic() - start_time, ndigits=2)
