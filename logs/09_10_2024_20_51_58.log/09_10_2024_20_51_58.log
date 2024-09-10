@@ -1,0 +1,12 @@
+[2024-09-10 20:52:48,418] 1026 - httpx - INFO - HTTP Request: GET https://qwen-qwen2-0-5b-instruct.hf.space/config "HTTP/1.1 200 OK" 
+[2024-09-10 20:52:49,595] 1026 - httpx - INFO - HTTP Request: GET https://qwen-qwen2-0-5b-instruct.hf.space/info?serialize=False "HTTP/1.1 200 OK" 
+[2024-09-10 20:52:50,998] 1026 - httpx - INFO - HTTP Request: POST https://qwen-qwen2-0-5b-instruct.hf.space/queue/join "HTTP/1.1 200 OK" 
+[2024-09-10 20:52:51,004] 1026 - httpx - INFO - HTTP Request: GET https://qwen-qwen2-0-5b-instruct.hf.space/heartbeat/845e6b84-eb8e-49c1-a32b-96de3f1b4f36 "HTTP/1.1 200 OK" 
+[2024-09-10 20:52:52,111] 1026 - httpx - INFO - HTTP Request: GET https://qwen-qwen2-0-5b-instruct.hf.space/queue/data?session_hash=845e6b84-eb8e-49c1-a32b-96de3f1b4f36 "HTTP/1.1 200 OK" 
+[2024-09-10 20:52:52,183] 80 - root - INFO - Error generated in model output generation 
+[2024-09-10 20:52:57,190] 1026 - httpx - INFO - HTTP Request: GET https://qwen-qwen2-0-5b-instruct.hf.space/config "HTTP/1.1 200 OK" 
+[2024-09-10 20:52:58,366] 1026 - httpx - INFO - HTTP Request: GET https://qwen-qwen2-0-5b-instruct.hf.space/info?serialize=False "HTTP/1.1 200 OK" 
+[2024-09-10 20:52:59,573] 1026 - httpx - INFO - HTTP Request: POST https://qwen-qwen2-0-5b-instruct.hf.space/queue/join "HTTP/1.1 200 OK" 
+[2024-09-10 20:52:59,592] 1026 - httpx - INFO - HTTP Request: GET https://qwen-qwen2-0-5b-instruct.hf.space/heartbeat/02b57933-4d6f-41fb-96b6-137382074b40 "HTTP/1.1 200 OK" 
+[2024-09-10 20:53:01,465] 1026 - httpx - INFO - HTTP Request: GET https://qwen-qwen2-0-5b-instruct.hf.space/queue/data?session_hash=02b57933-4d6f-41fb-96b6-137382074b40 "HTTP/1.1 200 OK" 
+[2024-09-10 20:53:01,488] 80 - root - INFO - Error generated in model output generation 
