@@ -58,7 +58,7 @@ if prompt := st.chat_input("Chat with bot",):
     
     with st.chat_message("assistant"):
         try:
-        # filtering out explicit user prompts
+            # filtering out explicit user prompts
             if profanity.contains_profanity(prompt):  
                 res = random.choice(["Sorry, I cannot assist with that!",
                                     "I cannot help with that. Please, Let me know how I can assist further."])
@@ -68,8 +68,6 @@ if prompt := st.chat_input("Chat with bot",):
                 with st.spinner("Thinking..."):
                     start_time = time.monotonic()
 
-                    # f_mes = message_prompt(newprompt=prompt, oldprompt=st.session_state.messages)
-                    # res = Model.QA_model(message=f_mes)
                     res = Model.model_generate(message=prompt)
                     st.write_stream(stream_output(res)) 
                     
