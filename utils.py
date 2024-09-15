@@ -22,4 +22,4 @@ def message_prompt(newprompt=None, oldprompt=None):
                 return message
         except Exception as e:
               logging.info('Error in generating message prompt for model input.')
-              CustomException(e, sys)
+              raise CustomException(e, sys)

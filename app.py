@@ -54,7 +54,7 @@ if prompt := st.chat_input("Chat with bot",):
             st.markdown(prompt)
     except Exception as e:
         logging.info("Error in user message input")
-        CustomException(e, sys)
+        raise CustomException(e, sys)
     
     with st.chat_message("assistant"):
         try:
@@ -76,6 +76,6 @@ if prompt := st.chat_input("Chat with bot",):
                                 unsafe_allow_html=True)
         except Exception as e:
             logging.info('Error generated in model output generation')
-            CustomException(e, sys)
+            raise CustomException(e, sys)
 
     st.session_state.messages.append({"role": "assistant", "content": res})

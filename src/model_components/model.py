@@ -16,7 +16,7 @@ class Model:
             return model
         except Exception as e:
             logging.info('Error in model model loading')
-            CustomException(e, sys)
+            raise CustomException(e, sys)
 
     
     @staticmethod
@@ -36,6 +36,6 @@ class Model:
                 return answer[0]['generated_text'][-1]['content']                   
             except Exception as e:
                 logging.info('Error in model answer generation')
-                CustomException(e, sys)
+                raise CustomException(e, sys)
 
 
