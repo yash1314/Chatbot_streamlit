@@ -3,7 +3,6 @@ import streamlit as st
 from streamlit import _bottom
 from better_profanity import profanity
 from src.logging import logging
-from src.exception import CustomException
 
 from utils import message_prompt, stream_output
 from src.model_components.model import Model
@@ -54,7 +53,7 @@ if prompt := st.chat_input("Chat with bot",):
             st.markdown(prompt)
     except Exception as e:
         logging.info("Error in user message input")
-        raise CustomException(e, sys)
+        
     
     with st.chat_message("assistant"):
         try:
@@ -76,6 +75,6 @@ if prompt := st.chat_input("Chat with bot",):
                                 unsafe_allow_html=True)
         except Exception as e:
             logging.info('Error generated in model output generation')
-            raise CustomException(e, sys)
+            
 
     st.session_state.messages.append({"role": "assistant", "content": res})

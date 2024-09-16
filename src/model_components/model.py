@@ -2,7 +2,6 @@ from transformers import pipeline
 import streamlit as st
 import sys
 
-from src.exception import CustomException
 from src.logging import logging
 from gradio_client import Client
 
@@ -16,8 +15,7 @@ class Model:
             return model
         except Exception as e:
             logging.info('Error in model model loading')
-            raise CustomException(e, sys)
-
+            
     
     @staticmethod
     def model_generate(message):
@@ -36,6 +34,3 @@ class Model:
                 return answer[0]['generated_text'][-1]['content']                   
             except Exception as e:
                 logging.info('Error in model answer generation')
-                raise CustomException(e, sys)
-
-
