@@ -15,9 +15,9 @@ with open ('design.css') as source:
     st.markdown(f"<style>{source.read()}</style>",unsafe_allow_html=True)
 
 # design elements layouts
-st.markdown('<style>div.block-container{padding-top:0.4rem;}</style>', unsafe_allow_html=True)
+st.markdown('<style>div.block-container{padding-top:0.8rem;}</style>', unsafe_allow_html=True)
 
-st.header(f"*:orange[Chat] Next*! 💬",divider='orange')
+st.header(f"*:orange[Chat]Next*! 💬",divider='grey')
 st.markdown(" ")
 st.markdown("""**Feel free to chat openly and ask anything you like. Just keep in mind that bot responses might not always be factual and 100% accurate, so use carefully.
     <span style="color: green;">Enjoy exploring!</span>**""", unsafe_allow_html=True)
@@ -56,10 +56,11 @@ if prompt := st.chat_input("Chat with bot",):
         
     
     with st.chat_message("assistant"):
+        
         try:
             # filtering out explicit user prompts
             if profanity.contains_profanity(prompt):  
-                res = random.choice(["Sorry, I cannot assist with that!",
+                res = random.choice(["Sorry, but I cannot assist with that!",
                                     "I cannot help with that. Please, Let me know how I can assist further."])
                 st.write_stream(stream_output(res)) 
                     
@@ -71,9 +72,9 @@ if prompt := st.chat_input("Chat with bot",):
                     st.write_stream(stream_output(res)) 
                     
                     processed_time = round(time.monotonic() - start_time, ndigits=2)
-                    st.markdown(f'<div style="text-align: right;">Processed time: {processed_time} seconds</div>',
+                    st.markdown(f'<div style="text-align: right;">Latency: {processed_time} seconds</div>',
                                 unsafe_allow_html=True)
         except Exception as e:
             logging.info('Error generated in model output generation')
 
-        st.session_state.messages.append({"role": "assistant", "content": res})
+    st.session_state.messages.append({"role": "assistant", "content": res})
