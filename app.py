@@ -75,6 +75,5 @@ if prompt := st.chat_input("Chat with bot",):
                                 unsafe_allow_html=True)
         except Exception as e:
             logging.info('Error generated in model output generation')
-            
 
-    st.session_state.messages.append({"role": "assistant", "content": res})
+        st.session_state.messages.append({"role": "assistant", "content": res})

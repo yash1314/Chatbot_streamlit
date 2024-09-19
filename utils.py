@@ -8,7 +8,7 @@ from src.logging import logging
 def stream_output(message):
     for word in message.split(" "):
         yield word + " "
-        time.sleep(0.03)
+        time.sleep(0.07)
 
 
 # formatting the prompt for model input
