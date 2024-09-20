@@ -6,6 +6,7 @@ from src.logging import logging
 
 from utils import message_prompt, stream_output
 from src.model_components.model import Model
+from PIL import Image
 
 # page setup
 st.set_page_config(page_title="Chatbot", page_icon="💬", layout="wide")
@@ -41,40 +42,34 @@ if "messages" not in st.session_state:
         st.session_state.messages = []
 
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    if message['role'] == 'user':
+        with st.chat_message(message["role"], avatar=Image.open(r"artifact\man.png")):
+            st.markdown(message["content"])
+    elif message['role'] == 'assistant':
+        with st.chat_message(message["role"], avatar=Image.open(r"artifact\chatbot.png")):
+            st.markdown(message["content"])
 
 
 # chat elements 
-if prompt := st.chat_input("Chat with bot",):
-    try: 
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
-    except Exception as e:
-        logging.info("Error in user message input")
-        
+if prompt := st.chat_input("Chat with bot"):
+     
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user", avatar=Image.open(r"artifact\man.png")):
+        st.markdown(prompt)
     
-    with st.chat_message("assistant"):
-        
-        try:
-            # filtering out explicit user prompts
-            if profanity.contains_profanity(prompt):  
-                res = random.choice(["Sorry, but I cannot assist with that!",
-                                    "I cannot help with that. Please, Let me know how I can assist further."])
-                st.write_stream(stream_output(res)) 
-                    
-            else:
-                with st.spinner("Thinking..."):
-                    start_time = time.monotonic()
+    with st.chat_message("assistant",avatar = Image.open(r"artifact\chatbot.png")):
+        if profanity.contains_profanity(prompt):  
+            res = random.choice(["Sorry, but I cannot assist with that!",
+                                "I cannot help with that. Please, Let me know how I can assist further."])
+            st.write_stream(stream_output(res))
 
-                    res = Model.model_generate(message=prompt)
-                    st.write_stream(stream_output(res)) 
-                    
-                    processed_time = round(time.monotonic() - start_time, ndigits=2)
-                    st.markdown(f'<div style="text-align: right;">Latency: {processed_time} seconds</div>',
-                                unsafe_allow_html=True)
-        except Exception as e:
-            logging.info('Error generated in model output generation')
-
+        else:
+            with st.spinner("Thinking..."):
+                start_time = time.monotonic()
+                res = Model.model_generate(message=prompt) 
+            st.write_stream(stream_output(res))
+            
+        processed_time = round(time.monotonic() - start_time, ndigits=2)
+        st.markdown(f'<div style="text-align: right;">Latency: {processed_time} seconds</div>', unsafe_allow_html=True)
+            
     st.session_state.messages.append({"role": "assistant", "content": res})

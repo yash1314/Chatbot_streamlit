@@ -6,9 +6,12 @@ from src.logging import logging
 
 # for streaming output letter by letter
 def stream_output(message):
-    for word in message.split(" "):
-        yield word + " "
-        time.sleep(0.07)
+    try: 
+        for word in message.split(" "):
+                yield word + " "
+                time.sleep(0.07)
+    except Exception as e:
+          logging.error(f"Error in generating stream {e}")
 
 
 # formatting the prompt for model input
