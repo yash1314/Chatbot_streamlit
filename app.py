@@ -36,6 +36,9 @@ st.markdown("""
 st.markdown(" ")
 st.markdown(" ")
 
+# images
+bot_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/chatbot.png"
+user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/man.png"
 
 # initializing message history 
 if "messages" not in st.session_state:
@@ -43,10 +46,10 @@ if "messages" not in st.session_state:
 
 for message in st.session_state.messages:
     if message['role'] == 'user':
-        with st.chat_message(message["role"], avatar=Image.open(r"artifact\man.png")):
+        with st.chat_message(message["role"], avatar=user_img):
             st.markdown(message["content"])
     elif message['role'] == 'assistant':
-        with st.chat_message(message["role"], avatar=Image.open(r"artifact\chatbot.png")):
+        with st.chat_message(message["role"], avatar=bot_img):
             st.markdown(message["content"])
 
 
@@ -54,10 +57,10 @@ for message in st.session_state.messages:
 if prompt := st.chat_input("Chat with bot"):
      
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user", avatar=Image.open(r"artifact\man.png")):
+    with st.chat_message("user", avatar=user_img):
         st.markdown(prompt)
     
-    with st.chat_message("assistant",avatar = Image.open(r"artifact\chatbot.png")):
+    with st.chat_message("assistant",avatar=bot_img):
         if profanity.contains_profanity(prompt):  
             res = random.choice(["Sorry, but I cannot assist with that!",
                                 "I cannot help with that. Please, Let me know how I can assist further."])
