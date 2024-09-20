@@ -61,6 +61,7 @@ if prompt := st.chat_input("Chat with bot"):
         st.markdown(prompt)
     
     with st.chat_message("assistant",avatar=bot_img):
+        st.empty()
         if profanity.contains_profanity(prompt):  
             res = random.choice(["Sorry, but I cannot assist with that!",
                                 "I cannot help with that. Please, Let me know how I can assist further."])
