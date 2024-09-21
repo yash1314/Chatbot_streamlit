@@ -23,17 +23,16 @@ st.markdown(" ")
 st.markdown("""**Feel free to chat openly and ask anything you like. Just keep in mind that bot responses might not always be factual and 100% accurate, so use carefully.
     <span style="color: green;">Enjoy exploring!</span>**""", unsafe_allow_html=True)
 
-# details about creator profile
-st.markdown("""
-    <div style="text-align: right;">
-        <span style="display: inline-block;">Made by- <strong>Yash Keshari,</strong></span>
-        <span style="display: inline-block; margin-left: 5px;">
-            <a href="https://www.linkedin.com/in/yash907/" target="_blank" style="text-decoration: none; color: blue;">LinkedIn,</a>
-            <a href="https://github.com/yash1314" target="_blank" style="text-decoration: none; color: blue; margin-left: 5px;">GitHub</a>
-        </span>
-    </div>
-    """, unsafe_allow_html=True)
-st.markdown(" ")
+# details about creator profile 
+with st.popover(label="Developer Profile"):
+    with st.container(border=True):
+        st.markdown("<h3 style='text-align: center; color:#f08080;'>YASH KESHARI</h3>", unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.link_button("**LinkedIn**", "https://www.linkedin.com/", use_container_width=True)
+        with col2:
+            st.link_button("**GitHub**", "https://github.com/", use_container_width=True)
+        
 st.markdown(" ")
 
 # images
@@ -42,9 +41,11 @@ user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/he
 
 # initializing message history 
 if "messages" not in st.session_state:
-        st.session_state.messages = []
+        st.session_state.messages = [{"role": "assistant", 
+                                        "content": "Hi User! I am Yash-Works smart AI. How can I help you today?"}]
 
 for message in st.session_state.messages:
+    print(message)
     if message['role'] == 'user':
         with st.chat_message(message["role"], avatar=user_img):
             st.markdown(message["content"])
@@ -61,18 +62,25 @@ if prompt := st.chat_input("Chat with bot"):
         st.markdown(prompt)
     
     with st.chat_message("assistant",avatar=bot_img):
-        if profanity.contains_profanity(prompt):  
-            res = random.choice(["Sorry, but I cannot assist with that!",
-                                "I cannot help with that. Please, Let me know how I can assist further."])
-            st.write_stream(stream_output(res))
+        message_placeholder = st.empty()
+        try: 
+            if profanity.contains_profanity(prompt):  
+                res = random.choice(["Sorry, but I cannot assist with that!",
+                                    "I cannot help with that. Please, Let me know how I can assist further."])
+                st.write_stream(stream_output(res))
+                latency=4
+                st.markdown(f'<div style="text-align: right;">Latency: {latency} seconds</div>', unsafe_allow_html=True)
 
-        else:
-            with st.spinner("Thinking..."):
-                start_time = time.monotonic()
-                res = Model.model_generate(message=prompt) 
-            st.write_stream(stream_output(res))
-            
-        processed_time = round(time.monotonic() - start_time, ndigits=2)
-        st.markdown(f'<div style="text-align: right;">Latency: {processed_time} seconds</div>', unsafe_allow_html=True)
-            
+            else:
+                with st.spinner("Thinking..."):
+                    start_time = time.monotonic()
+                    res = Model.model_generate(message=prompt)
+                    latency = round(time.monotonic() - start_time, ndigits=2) 
+                message_placeholder.write_stream(stream_output(res))
+                
+                st.markdown(f'<div style="text-align: right;">Latency: {latency} seconds</div>', unsafe_allow_html=True)
+        
+        except Exception as e:
+            logging.info(f'Error in generating bot answer: {e}')
+            res = st.write(stream_output("There is some technical issue, we are working to fix it. Please, try again after sometime."))
     st.session_state.messages.append({"role": "assistant", "content": res})
