@@ -29,9 +29,9 @@ with st.popover(label="Developer Profile"):
         st.markdown("<h3 style='text-align: center; color:#f08080;'>YASH KESHARI</h3>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
-            st.link_button("**LinkedIn**", "https://www.linkedin.com/", use_container_width=True)
+            st.link_button("**LinkedIn**", "https://www.linkedin.com/in/yash907", use_container_width=True)
         with col2:
-            st.link_button("**GitHub**", "https://github.com/", use_container_width=True)
+            st.link_button("**GitHub**", "https://github.com/yash1314", use_container_width=True)
         
 st.markdown(" ")
 
