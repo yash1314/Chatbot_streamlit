@@ -5,3 +5,4 @@ transformers
 torch
 better-profanity
 gradio-client
+streamlit-lottie
