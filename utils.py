@@ -1,14 +1,15 @@
-import sys, random, time, requests
+import sys, random, time, requests, json
 import streamlit as st
 from src.exception import CustomException
 from src.logging import logging
 
 
 def json_load(path):
-      url = requests.get(path)
-#       print(type(url.text))
-      return url.json()
-
+      try:
+        url = requests.get(path)
+        return url.json()
+      except json.JSONDecodeError as e:
+        logging.error("Error occures in jason Load: {e}")
 
 
 # for streaming output letter by letter

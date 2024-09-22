@@ -40,7 +40,11 @@ st.markdown(" ")
 # images and lottie animations
 bot_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/chatbot.png"
 user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/man.png"
-lottie_url = json_load("https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/animations/Animation_1726989223814.json")
+
+if "lottie_url" not in globals():
+    lottie_url = json_load("https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/animations/Animation_1726989223814.json")
+else:
+    pass
 
 # initializing message history 
 if "messages" not in st.session_state:
