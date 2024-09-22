@@ -4,14 +4,6 @@ from src.exception import CustomException
 from src.logging import logging
 
 
-def json_load(path):
-      try:
-        url = requests.get(path)
-        return url.json()
-      except json.JSONDecodeError as e:
-        logging.error("Error occures in jason Load: {e}")
-
-
 # for streaming output letter by letter
 def stream_output(message):
     try: 

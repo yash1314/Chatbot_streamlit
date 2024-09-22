@@ -4,7 +4,7 @@ from streamlit import _bottom
 from better_profanity import profanity
 from src.logging import logging
 
-from utils import message_prompt, stream_output, json_load
+from utils import message_prompt, stream_output
 from src.model_components.model import Model
 from PIL import Image
 from streamlit_lottie import st_lottie_spinner
