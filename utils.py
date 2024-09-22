@@ -1,7 +1,14 @@
-import time, sys, random
+import sys, random, json, time
 import streamlit as st
 from src.exception import CustomException
 from src.logging import logging
+
+
+def json_load(path):
+        with open(path, 'r') as file:
+                url = json.load(file)
+                return url
+            
 
 
 # for streaming output letter by letter

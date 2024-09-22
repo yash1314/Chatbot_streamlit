@@ -4,16 +4,18 @@ from streamlit import _bottom
 from better_profanity import profanity
 from src.logging import logging
 
-from utils import message_prompt, stream_output
+from utils import message_prompt, stream_output, json_load
 from src.model_components.model import Model
 from PIL import Image
+from streamlit_lottie import st_lottie_spinner
 
 # page setup
-st.set_page_config(page_title="Chatbot", page_icon="💬", layout="wide")
+st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered")
 
 # bot and user chat alignment
 with open ('design.css') as source:
     st.markdown(f"<style>{source.read()}</style>",unsafe_allow_html=True)
+
 
 # design elements layouts
 st.markdown('<style>div.block-container{padding-top:0.8rem;}</style>', unsafe_allow_html=True)
@@ -35,9 +37,10 @@ with st.popover(label="Developer Profile"):
         
 st.markdown(" ")
 
-# images
+# images and lottie animations
 bot_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/chatbot.png"
 user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/man.png"
+lottie_url = json_load(r"artifact\animations\Animation_1726989223814.json")
 
 # initializing message history 
 if "messages" not in st.session_state:
@@ -45,7 +48,6 @@ if "messages" not in st.session_state:
                                         "content": "Hi User! I am Yash-Works smart AI. How can I help you today?"}]
 
 for message in st.session_state.messages:
-    print(message)
     if message['role'] == 'user':
         with st.chat_message(message["role"], avatar=user_img):
             st.markdown(message["content"])
@@ -67,12 +69,13 @@ if prompt := st.chat_input("Chat with bot"):
             if profanity.contains_profanity(prompt):  
                 res = random.choice(["Sorry, but I cannot assist with that!",
                                     "I cannot help with that. Please, Let me know how I can assist further."])
-                st.write_stream(stream_output(res))
+                res = message_placeholder.write_stream(stream_output(res))
                 latency=4
                 st.markdown(f'<div style="text-align: right;">Latency: {latency} seconds</div>', unsafe_allow_html=True)
 
             else:
-                with st.spinner("Thinking..."):
+                # with st.spinner("Thinking..."):
+                with st_lottie_spinner(lottie_url,height=35, width=60):
                     start_time = time.monotonic()
                     res = Model.model_generate(message=prompt)
                     latency = round(time.monotonic() - start_time, ndigits=2) 
