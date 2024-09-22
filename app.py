@@ -8,7 +8,7 @@ from utils import message_prompt, stream_output, json_load
 from src.model_components.model import Model
 from PIL import Image
 from streamlit_lottie import st_lottie_spinner
-
+from artifact.animations.lottie_animation import return_animation
 # page setup
 st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered")
 
@@ -40,11 +40,7 @@ st.markdown(" ")
 # images and lottie animations
 bot_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/chatbot.png"
 user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/man.png"
-
-if "lottie_url" not in globals():
-    lottie_url = json_load("https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/animations/Animation_1726989223814.json")
-else:
-    pass
+lottie_url = return_animation()
 
 # initializing message history 
 if "messages" not in st.session_state:
