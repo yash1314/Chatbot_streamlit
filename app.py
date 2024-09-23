@@ -78,6 +78,7 @@ if prompt := st.chat_input("Chat with bot"):
                 with st_lottie_spinner(lottie_url,height=35, width=60):
                     start_time = time.monotonic()
                     res = Model.model_generate(message=prompt)
+
                     latency = round(time.monotonic() - start_time, ndigits=2) 
                 message_placeholder.write_stream(stream_output(res))
                 
@@ -85,5 +86,5 @@ if prompt := st.chat_input("Chat with bot"):
         
         except Exception as e:
             logging.info(f'Error in generating bot answer: {e}')
-            res = st.write(stream_output("There is some technical issue, we are working to fix it. Please, try again after sometime."))
+            res = st.write(stream_output("Internal Error - We're working hard to fix this as soon as possible!"))
     st.session_state.messages.append({"role": "assistant", "content": res})
