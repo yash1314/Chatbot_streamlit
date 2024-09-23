@@ -10,7 +10,7 @@ from PIL import Image
 from streamlit_lottie import st_lottie_spinner
 from artifact.animations.lottie_animation import return_animation
 # page setup
-st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered")
+st.set_page_config(page_title="Chatbot", page_icon="💬", layout="wide")
 
 # bot and user chat alignment
 with open ('design.css') as source:
