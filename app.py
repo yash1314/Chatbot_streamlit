@@ -8,7 +8,7 @@ from utils import message_prompt, stream_output
 from src.model_components.model import Model
 from PIL import Image
 from streamlit_lottie import st_lottie_spinner
-from artifact.animations.lottie_animation import return_animation
+from artifact.animations.lottie_animation import animation2
 # page setup
 st.set_page_config(page_title="Chatbot", page_icon="💬", layout="wide")
 
@@ -25,27 +25,34 @@ st.markdown(" ")
 st.markdown("""**Feel free to chat openly and ask anything you like. Just keep in mind that bot responses might not always be factual and 100% accurate, so use carefully.
     <span style="color: green;">Enjoy exploring!</span>**""", unsafe_allow_html=True)
 
-# details about creator profile 
-with st.popover(label="Developer Profile"):
-    with st.container(border=True):
-        st.markdown("<h4 style='text-align: center; color:#f08080;'>YASH KESHARI</h4>", unsafe_allow_html=True)
-        col1, col2 = st.columns(2)
-        with col1:
-            st.link_button("**LinkedIn**", "https://www.linkedin.com/in/yash907", use_container_width=True)
-        with col2:
-            st.link_button("**GitHub**", "https://github.com/yash1314", use_container_width=True)
+# # details about creator profile 
+# with st.popover(label="Developer Profile"):
+#     with st.container(border=True):
+#         st.markdown("<h4 style='text-align: center; color:#f08080;'>YASH KESHARI</h4>", unsafe_allow_html=True)
+#         col1, col2 = st.columns(2)
+#         with col1:
+#             st.link_button("**LinkedIn**", "https://www.linkedin.com/in/yash907", use_container_width=True)
+#         with col2:
+#             st.link_button("**GitHub**", "https://github.com/yash1314", use_container_width=True)
+
+st.markdown(
+    "<div style='text-align: center;'>"
+    "|| Made with ❤️‍🔥 by Yash Keshari ||"
+    "</div>",
+    unsafe_allow_html=True)
+st.markdown(" ")
         
 st.markdown(" ")
 
 # images and lottie animations
 bot_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/chatbot.png"
 user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/man.png"
-lottie_url = return_animation()
+
 
 # initializing message history 
 if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", 
-                                        "content": "Hi User! I am Yash-Works smart AI. How can I help you today?"}]
+                                        "content": "Hi User! I am a smart AI. How can I help you today?"}]
 
 for message in st.session_state.messages:
     if message['role'] == 'user':
@@ -75,7 +82,7 @@ if prompt := st.chat_input("Chat with bot"):
 
             else:
                 # with st.spinner("Thinking..."):
-                with st_lottie_spinner(lottie_url,height=35, width=60):
+                with st_lottie_spinner(animation2(), height=52, width=55):
                     start_time = time.monotonic()
                     res = Model.model_generate(message=prompt)
 

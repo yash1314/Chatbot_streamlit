@@ -1,4 +1,4 @@
-import sys, random, time, requests, json
+import sys, random, time
 import streamlit as st
 from src.exception import CustomException
 from src.logging import logging
@@ -26,3 +26,64 @@ def message_prompt(newprompt=None, oldprompt=None):
         except Exception as e:
               logging.info('Error in generating message prompt for model input.')
               raise CustomException(e, sys)
+        
+
+def sug_message(count:int = 1):
+        suggestions = [
+        "Can you help me find a recipe for dinner?",
+        "What’s the weather like today?",
+        "I need advice on managing stress.",
+        "Tell me a fun fact about space!",
+        "How do I start learning a new language?",
+        "What are some good movies to watch this weekend?",
+        "Help me create a workout plan.",
+        "What’s trending in technology right now?",
+        "Can you suggest a book to read?",
+        "I’d like tips for improving my sleep.",
+        "What’s the best way to save money?",
+        "I need help with my resume.",
+        "What are some easy crafts for kids?",
+        "Can you recommend a podcast?",
+        "What’s a good way to stay organized?",
+        "I want to learn more about meditation.",
+        "What’s the best approach to public speaking?",
+        "Can you suggest some fun activities for a date?",
+        "How do I improve my time management skills?",
+        "What are some healthy snack ideas?",
+        "Tell me about the benefits of yoga.",
+        "What’s a good strategy for studying?",
+        "Can you give me travel tips for Europe?",
+        "What are the latest fashion trends?",
+        "How do I get started with gardening?",
+        "Can you help me with a math problem?",
+        "What are some interesting historical events?",
+        "I need ideas for a party theme.",
+        "Can you help me plan a budget?",
+        "What are some popular video games right now?",
+        "Can you explain a complex topic simply?",
+        "I’m looking for advice on starting a blog.",
+        "What are some creative writing prompts?",
+        "How do I make my own cleaning products?",
+        "What’s the best way to network professionally?",
+        "Can you give me tips for a job interview?",
+        "What are the benefits of journaling?",
+        "Can you recommend some board games?",
+        "What should I know about cryptocurrency?",
+        "How can I be more productive at work?",
+        "What’s a good strategy for learning math?",
+        "Can you suggest some environmental tips?",
+        "What are some great outdoor activities?",
+        "How do I improve my communication skills?",
+        "Can you help me choose a gift for a friend?",
+        "What are the signs of burnout?",
+        "How do I stay motivated while studying?",
+        "Can you share a quick meditation exercise?",
+        "What’s the best way to approach a new hobby?" ]
+
+        result = random.choices(suggestions, k = 3)
+        return result
+
+
+# def on_button_click(num):
+#     st.session_state.user_selected_message = st.session_state.message_sugg[num]
+#     st.session_state.button_clicked = True
