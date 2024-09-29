@@ -20,7 +20,7 @@ with open ('design.css') as source:
 
 
 # # design elements layouts
-st.markdown('<style>div.block-container{padding-top:0.8rem;}</style>', unsafe_allow_html=True)
+st.markdown('<style>div.block-container{padding-top:0.5rem;}</style>', unsafe_allow_html=True)
 
 st.header(f"*:orange[Chat]Next*! 💬")
 # st.markdown("")

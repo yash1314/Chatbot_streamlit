@@ -18,12 +18,14 @@ with open ('design.css') as source:
 
 
 # design elements layouts
-st.markdown('<style>div.block-container{padding-top:0.8rem;}</style>', unsafe_allow_html=True)
+st.markdown('<style>div.block-container{padding-top:0.4rem;}</style>', unsafe_allow_html=True)
 
-st.header(f"*:orange[Chat]Next*! 💬")
+st.header(f"*:orange[Chat]Next*! 💬", divider="gray")
 
-if st.button('App info'):
-    app_info()
+with st.form('App info', border= False):
+    app_button = st.form_submit_button(label="Start Here")
+    if app_button:
+        app_info()
 
 # st.markdown(" ")
 # st.markdown("""**Feel free to chat openly and ask anything you like. Just keep in mind that bot responses might not always be factual and 100% accurate, so use carefully.

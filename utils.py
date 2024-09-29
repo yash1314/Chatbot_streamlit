@@ -94,6 +94,7 @@ def on_button_click(num):
 def app_info():
       st.markdown("""**Welcome! Feel free to ask anything—let’s explore together! Our chatbot aims to provide helpful responses, but remember, accuracy isn’t guaranteed. Enjoy the chat! 🚀
     :green[Enjoy exploring!]**""", unsafe_allow_html=True)
+      st.markdown(" ")
       st.markdown(
     "<div style='text-align: center;'>"
     "<a href='https://www.linkedin.com/in/yash907'>LinkedIn</a> | Made with ❤️‍🔥 by Yash Keshari"
