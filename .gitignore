@@ -1,5 +1,4 @@
 .venv
 logs
 extras
-.devcontainer
 .test1
