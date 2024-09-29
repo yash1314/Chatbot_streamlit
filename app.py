@@ -4,7 +4,7 @@ from streamlit import _bottom
 from better_profanity import profanity
 from src.logging import logging
 
-from utils import message_prompt, stream_output
+from utils import message_prompt, stream_output, app_info
 from src.model_components.model import Model
 from PIL import Image
 from streamlit_lottie import st_lottie_spinner
@@ -20,10 +20,14 @@ with open ('design.css') as source:
 # design elements layouts
 st.markdown('<style>div.block-container{padding-top:0.8rem;}</style>', unsafe_allow_html=True)
 
-st.header(f"*:orange[Chat]Next*! 💬",divider='grey')
-st.markdown(" ")
-st.markdown("""**Feel free to chat openly and ask anything you like. Just keep in mind that bot responses might not always be factual and 100% accurate, so use carefully.
-    <span style="color: green;">Enjoy exploring!</span>**""", unsafe_allow_html=True)
+st.header(f"*:orange[Chat]Next*! 💬")
+
+if st.button('App info'):
+    app_info()
+
+# st.markdown(" ")
+# st.markdown("""**Feel free to chat openly and ask anything you like. Just keep in mind that bot responses might not always be factual and 100% accurate, so use carefully.
+#     <span style="color: green;">Enjoy exploring!</span>**""", unsafe_allow_html=True)
 
 # # details about creator profile 
 # with st.popover(label="Developer Profile"):
@@ -35,11 +39,7 @@ st.markdown("""**Feel free to chat openly and ask anything you like. Just keep i
 #         with col2:
 #             st.link_button("**GitHub**", "https://github.com/yash1314", use_container_width=True)
 
-st.markdown(
-    "<div style='text-align: center;'>"
-    "|| Made with ❤️‍🔥 by Yash Keshari ||"
-    "</div>",
-    unsafe_allow_html=True)
+
 st.markdown(" ")
         
 st.markdown(" ")
