@@ -84,6 +84,19 @@ def sug_message(count:int = 1):
         return result
 
 
-# def on_button_click(num):
-#     st.session_state.user_selected_message = st.session_state.message_sugg[num]
-#     st.session_state.button_clicked = True
+def on_button_click(num):
+    user_message = st.session_state.message_sugg[num]
+    st.session_state.user_selected_message = user_message
+    st.session_state.button_clicked = 1
+
+
+@st.dialog(title="Welcome to ChatNext!", width="large")
+def app_info():
+      st.markdown("""**Welcome! Feel free to ask anything—let’s explore together! Our chatbot aims to provide helpful responses, but remember, accuracy isn’t guaranteed. Enjoy the chat! 🚀
+    :green[Enjoy exploring!]**""", unsafe_allow_html=True)
+      st.markdown(
+    "<div style='text-align: center;'>"
+    "<a href='https://www.linkedin.com/in/yash907'>LinkedIn</a> | Made with ❤️‍🔥 by Yash Keshari"
+    "</div>",
+    unsafe_allow_html=True)
+      st.markdown(" ")
