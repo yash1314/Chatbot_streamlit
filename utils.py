@@ -97,7 +97,10 @@ def app_info():
       st.markdown(" ")
       st.markdown(
     "<div style='text-align: center;'>"
-    "<a href='https://www.linkedin.com/in/yash907'>LinkedIn</a> | Made with ❤️‍🔥 by Yash Keshari"
+    "| Made with ❤️‍🔥 by Yash Keshari |"
     "</div>",
     unsafe_allow_html=True)
       st.markdown(" ")
+
+
+#
