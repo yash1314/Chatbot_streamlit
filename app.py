@@ -50,7 +50,7 @@ st.markdown(" ")
 # images and lottie animations
 bot_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/chatbot.png"
 user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/man.png"
-
+bot_gif = "artifact\Animation2.gif"
 
 # initializing message history 
 if "messages" not in st.session_state:
@@ -62,7 +62,7 @@ for message in st.session_state.messages:
         with st.chat_message(message["role"], avatar=user_img):
             st.markdown(message["content"])
     elif message['role'] == 'assistant':
-        with st.chat_message(message["role"], avatar=bot_img):
+        with st.chat_message(message["role"], avatar=bot_gif):
             st.markdown(message["content"])
 
 
@@ -73,7 +73,7 @@ if prompt := st.chat_input("Chat with bot"):
     with st.chat_message("user", avatar=user_img):
         st.markdown(prompt)
     
-    with st.chat_message("assistant",avatar=bot_img):
+    with st.chat_message("assistant",avatar=bot_gif):
         message_placeholder = st.empty()
         try: 
             if profanity.contains_profanity(prompt):  
