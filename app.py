@@ -9,8 +9,9 @@ from src.model_components.model import Model
 from PIL import Image
 from streamlit_lottie import st_lottie_spinner
 from artifact.animations.lottie_animation import animation2
+
 # page setup
-st.set_page_config(page_title="Chatbot", page_icon="💬", layout="wide")
+st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered")
 
 # bot and user chat alignment
 with open ('design.css') as source:
@@ -20,7 +21,7 @@ with open ('design.css') as source:
 # design elements layouts
 st.markdown('<style>div.block-container{padding-top:0.4rem;}</style>', unsafe_allow_html=True)
 
-st.header(f"*:orange[Chat]Next*! 💬", divider="gray")
+st.header(f"*:orange[Chat] Next*", divider="gray")
 
 with st.form('App info', border= False):
     app_button = st.form_submit_button(label="Start Here")
@@ -54,7 +55,7 @@ user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/he
 # initializing message history 
 if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", 
-                                        "content": "Hi User! I am a smart AI. How can I help you today?"}]
+                                        "content": "Hi User! I am an AI Assistant. How can I help you?"}]
 
 for message in st.session_state.messages:
     if message['role'] == 'user':

@@ -14,7 +14,7 @@ class Model:
             model = pipeline("text-generation", model="Qwen/Qwen2.5-0.5B-Instruct", use_fast=True)
             return model
         except Exception as e:
-            logging.info('Error in model model loading')
+            logging.info('Error in model loading')
             
     
     @staticmethod
@@ -33,4 +33,4 @@ class Model:
                 answer = Model.load_t2t_model()(message, max_new_tokens = 750)
                 return answer[0]['generated_text'][-1]['content']                   
             except Exception as e:
-                logging.info('Error in model answer generation')
+                logging.info('Error in model Inferencing')
