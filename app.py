@@ -10,15 +10,15 @@ from PIL import Image
 from streamlit_lottie import st_lottie_spinner
 from artifact.animations.lottie_animation import animation2
 
-# page setup
+##################################### page setup
 st.set_page_config(page_title="Chatbot", page_icon="💬", layout="centered")
 
-# bot and user chat alignment
+###################################### bot and user chat alignment
 with open ('design.css') as source:
     st.markdown(f"<style>{source.read()}</style>",unsafe_allow_html=True)
 
 
-# design elements layouts
+###################################### design elements layouts
 st.markdown('<style>div.block-container{padding-top:0.4rem;}</style>', unsafe_allow_html=True)
 
 st.header(f"*:orange[Chat] Next*", divider="gray")
@@ -43,16 +43,15 @@ with st.form('App info', border= False):
 #             st.link_button("**GitHub**", "https://github.com/yash1314", use_container_width=True)
 
 
-st.markdown(" ")
-        
+st.markdown(" ")      
 st.markdown(" ")
 
-# images and lottie animations
-# bot_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/chatbot.png"
+###################################### images and lottie animations
+bot_img = "https://github.com/yash1314/Chatbot_streamlit/blob/main/artifact/ai_img.png"
 user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/man.png"
-bot_img = r"artifact\ai_img.png"
 
-# initializing message history 
+
+###################################### initializing message history 
 if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", 
                                         "content": "Hi User! I am an AI Assistant. How can I help you?"}]
@@ -66,7 +65,7 @@ for message in st.session_state.messages:
             st.markdown(message["content"])
 
 
-# chat elements 
+###################################### chat elements 
 if prompt := st.chat_input("Chat with bot"):
      
     st.session_state.messages.append({"role": "user", "content": prompt})
