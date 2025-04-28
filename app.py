@@ -47,7 +47,7 @@ st.markdown(" ")
 st.markdown(" ")
 
 ###################################### images and lottie animations
-bot_img = "https://raw.githubusrcontent.com/yash1314/Chatbot_streamlit/blob/main/artifact/ai_img.png"
+bot_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/ai_img.png"
 user_img = "https://raw.githubusercontent.com/yash1314/Chatbot_streamlit/refs/heads/main/artifact/man.png"
 
 
